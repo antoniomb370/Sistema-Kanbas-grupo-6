@@ -11,7 +11,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+@Column(name = "id_project")
     private Long id;
 
 
@@ -22,6 +22,16 @@ public class Project {
     private String description;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createAt = LocalDateTime.now();
+        updateAt = LocalDateTime.now();
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        updateAt = LocalDateTime.now();
+    }
 
     public Project() {
 
@@ -78,16 +88,7 @@ public class Project {
         this.updateAt = updateAt;
     }
 
-    @PrePersist
-    protected void onCreate() {
-        createAt = LocalDateTime.now();
-        updateAt = LocalDateTime.now();
-    }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updateAt = LocalDateTime.now();
-    }
 
 }
 
