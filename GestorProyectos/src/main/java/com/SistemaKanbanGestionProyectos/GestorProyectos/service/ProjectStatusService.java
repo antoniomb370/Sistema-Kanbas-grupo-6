@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+/*@Service
 public class ProjectStatusService {
 
    private final ProjectRepository projectRepository;
@@ -23,4 +23,4 @@ public class ProjectStatusService {
 
 
 
-}
+}*/

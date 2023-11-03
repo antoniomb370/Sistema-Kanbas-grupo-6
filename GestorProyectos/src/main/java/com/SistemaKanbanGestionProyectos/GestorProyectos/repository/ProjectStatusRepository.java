@@ -1,4 +1,4 @@
-package com.SistemaKanbanGestionProyectos.GestorProyectos.repository;
+/*package com.SistemaKanbanGestionProyectos.GestorProyectos.repository;
 
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Project;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.ProjectStatus;
@@ -11,4 +11,4 @@ import java.util.Optional;
 public interface ProjectStatusRepository  extends JpaRepository<ProjectStatus, Long> {
     Optional<Project> findProjectByName(String name);
     Optional<Project> findById(Integer id);
-}
+}*/
