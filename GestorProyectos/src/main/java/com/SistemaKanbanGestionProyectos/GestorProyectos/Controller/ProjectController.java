@@ -1,5 +1,6 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.Controller;
 
+import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.ProjectDto;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Project;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/api/v1/projects")
+@RequestMapping("/api/v1")
 public class ProjectController {
 
 
@@ -21,24 +22,36 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping
-    public List<Project> getProjects() {
+// crear un nuevo proyecto
+    @PostMapping("project")
+    public ResponseEntity<Object> registerNewProject(@RequestBody ProjectDto projectDto) {
+        return this.projectService.createProject(projectDto);
+    }
+
+    // obtener todos los proyectos
+    @GetMapping("projects")
+    public List<ProjectDto> getProjects() {
         return this.projectService.getProjects();
     }
 
-    @PostMapping
-    public ResponseEntity<Object> registerNewProject(@RequestBody Project project) {
-        return this.projectService.addNewProject(project);
-    }
-
+    // actualizar un  proyecto por id
     @PutMapping(path = "projects/{id}")
-    public Project actualizarProjectById(@PathVariable("id") Integer id, @RequestBody Project project) {
-        return this.projectService.actualizar(id, project);
+    public ResponseEntity<Object>  updateProjectById(@PathVariable("id") Long id, @RequestBody ProjectDto projectDto) {
+        return this.projectService.updateProject(id, projectDto);
     }
 
-    @DeleteMapping(path = "projects/{id}")
-    public ResponseEntity<Object> deleteProjectById(@PathVariable("id") Long id) {
-     return   this.projectService.deleteProject(id);
 
-}
+
+    // eliminar un proyecto por id
+    @DeleteMapping(path = "project/{id}")
+    public ResponseEntity<Object> deleteProjectById(@PathVariable("id") Long id) {
+        return this.projectService.deleteProject(id);
+
+    }
+
+    // busca    un proyecto por id
+      @GetMapping(path = "project/{id}")
+    public ResponseEntity<Object> getProjectById(@PathVariable("id") Long id) {
+          return this.projectService.getProjectById(id);
+      }
 }

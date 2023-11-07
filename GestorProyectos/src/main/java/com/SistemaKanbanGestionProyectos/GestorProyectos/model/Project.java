@@ -11,7 +11,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id_project")
+    @Column(name = "id_project")
     private Long id;
 
 
@@ -91,4 +91,3 @@ public class Project {
 
 
 }
-
