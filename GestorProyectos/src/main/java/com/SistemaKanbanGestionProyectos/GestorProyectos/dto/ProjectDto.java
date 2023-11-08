@@ -13,10 +13,13 @@ public class ProjectDto {
     public ProjectDto() {
     }
 
-    public ProjectDto(Long id, String name, String description) {
+
+    public ProjectDto(Long id, String name, String description, LocalDateTime createAt, LocalDateTime updateAt) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
     }
 
     public void setCreateAt(LocalDateTime createAt) {

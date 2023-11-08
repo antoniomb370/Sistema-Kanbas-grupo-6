@@ -30,7 +30,7 @@ public class ProjectController {
 
     // obtener todos los proyectos
     @GetMapping("projects")
-    public List<ProjectDto> getProjects() {
+    public List<Project> getProjects() {
         return this.projectService.getProjects();
     }
 
