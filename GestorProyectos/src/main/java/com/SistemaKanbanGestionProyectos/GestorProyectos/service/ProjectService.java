@@ -3,8 +3,14 @@ package com.SistemaKanbanGestionProyectos.GestorProyectos.service;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.ProjectDto;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.exceptionManeger.ProjectAlreadyExistsException;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Project;
+import com.SistemaKanbanGestionProyectos.GestorProyectos.model.ProjectStatus;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.repository.ProjectRepository;
+import com.SistemaKanbanGestionProyectos.GestorProyectos.repository.ProjectStatusRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,10 +21,13 @@ import java.util.*;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ProjectStatusRepository projectStatusRepository;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository,
+                          ProjectStatusRepository projectStatusRepository) {
         this.projectRepository = projectRepository;
+        this.projectStatusRepository = projectStatusRepository;
     }
 
     // crear un nuevo proyecto
@@ -40,8 +49,17 @@ public class ProjectService {
             if (existingProject.isPresent()) {
                 throw new ProjectAlreadyExistsException("El nombre del proyecto ya existe");
             }
-// Crear y guardar el proyecto
+// Crear el proyecto
             Project project = new Project(projectDto.getName(), projectDto.getDescription());
+            project.setStatus("active");
+
+          // crear estado del proyecto
+            ProjectStatus projectStatus = new ProjectStatus();
+            projectStatus.setActive(true);
+            projectStatus.setProject(project);
+            project.setProjectStatuses(projectStatus);
+
+// guardar el proyecto y el estado del proyecto
             projectRepository.save(project);
 
             datos.put("datos", project);
@@ -66,6 +84,14 @@ public class ProjectService {
     public List<Project> getProjects() {
         return projectRepository.findAll();
     }
+
+    // tarer todos los porject de manera paginada
+
+    public Page<Project> getProjectsPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return projectRepository.findAll(pageable);
+    }
+
 
 
     // actualizar un  proyecto por id
@@ -144,6 +170,7 @@ public class ProjectService {
                 projectDto.setId(project.getId());
                 projectDto.setName(project.getName());
                 projectDto.setDescription(project.getDescription());
+                projectDto.setStatus(project.getStatus());
                 projectDto.setCreateAt(project.getCreateAt());
                 projectDto.setUpdateAt(project.getUpdateAt());
                 datos.put("project", projectDto);
@@ -165,4 +192,5 @@ public class ProjectService {
         }
 
     }
+
 }

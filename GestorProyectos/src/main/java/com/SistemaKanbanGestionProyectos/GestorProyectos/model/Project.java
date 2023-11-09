@@ -1,9 +1,10 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -23,6 +24,14 @@ public class Project {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
+    @Column(name = "status")
+    private String status;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
+    private ProjectStatus  projectStatuses;
+
+
     @PrePersist
     protected void onCreate() {
         createAt = LocalDateTime.now();
@@ -33,8 +42,24 @@ public class Project {
         updateAt = LocalDateTime.now();
     }
 
-    public Project() {
+    public ProjectStatus getProjectStatuses() {
+        return projectStatuses;
+    }
 
+    public void setProjectStatuses(ProjectStatus projectStatuses) {
+        this.projectStatuses = projectStatuses;
+    }
+
+    public Project() {
+    }
+
+    public Project(String name, String description, LocalDateTime createAt, LocalDateTime updateAt, ProjectStatus projectStatuses, String status) {
+        this.name = name;
+        this.description = description;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+        this.projectStatuses = projectStatuses;
+         this.status = status;
     }
 
     public Project(Long id, String name, String description) {
@@ -46,6 +71,14 @@ public class Project {
     public Project(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {

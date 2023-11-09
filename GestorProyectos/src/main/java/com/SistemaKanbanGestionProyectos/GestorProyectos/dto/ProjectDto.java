@@ -9,17 +9,35 @@ public class ProjectDto {
     private String description;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+    private String status;
 
     public ProjectDto() {
     }
 
 
-    public ProjectDto(Long id, String name, String description, LocalDateTime createAt, LocalDateTime updateAt) {
+    public ProjectDto(Long id, String name, String description, LocalDateTime createAt, LocalDateTime updateAt, String status) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.status = status;
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+    }
+
+    public ProjectDto(String name, String description, LocalDateTime createAt, LocalDateTime updateAt, String status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setCreateAt(LocalDateTime createAt) {
