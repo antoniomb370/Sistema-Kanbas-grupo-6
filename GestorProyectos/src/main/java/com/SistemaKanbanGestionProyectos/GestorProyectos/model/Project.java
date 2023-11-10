@@ -1,6 +1,7 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class Project {
     @Column(name = "status")
     private String status;
 
-    @JsonIgnore
+    @JsonManagedReference
     @OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
     private ProjectStatus  projectStatuses;
 
@@ -122,5 +123,6 @@ public class Project {
     }
 
 
-
+    public void setTasks(List<Task> tasks) {
+    }
 }

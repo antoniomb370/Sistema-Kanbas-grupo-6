@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "task_type")
-public class Task_type {
+public class TaskType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,35 +20,24 @@ public class Task_type {
     private String spike;
 
     @Column(name = "bedt")
-      private String bedt;
-
-    @Column(name = "task")
-      private String task;
+    private String bedt;
 
     @ManyToOne
-    @JoinColumn(name = "id_task")
-    private Task task_id;
+    @JoinColumn(name = "task_id", nullable = false)
+    private Task task;
 
-    public Task_type() {
+
+    public TaskType() {
 
     }
-    public Task_type(Long id_task_type, String bug, String story, String spike, String bedt, String task, Task task_id) {
+
+    public TaskType(Long id_task_type, String bug, String story, String spike, String bedt, Task task) {
         this.id_task_type = id_task_type;
         this.bug = bug;
         this.story = story;
         this.spike = spike;
         this.bedt = bedt;
         this.task = task;
-        this.task_id = task_id;
-    }
-
-    public Task_type(String bug, String story, String spike, String bedt, String task, Task task_id) {
-        this.bug = bug;
-        this.story = story;
-        this.spike = spike;
-        this.bedt = bedt;
-        this.task = task;
-        this.task_id = task_id;
     }
 
     public Long getId_task_type() {
@@ -91,20 +80,12 @@ public class Task_type {
         this.bedt = bedt;
     }
 
-    public String getTask() {
+    public Task getTask() {
         return task;
     }
 
-    public void setTask(String task) {
+    public void setTask(Task task) {
         this.task = task;
-    }
-
-    public Task getTask_id() {
-        return task_id;
-    }
-
-    public void setTask_id(Task task_id) {
-        this.task_id = task_id;
     }
 }
 

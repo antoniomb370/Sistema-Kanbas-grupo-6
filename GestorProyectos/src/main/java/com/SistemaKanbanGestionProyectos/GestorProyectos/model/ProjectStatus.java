@@ -1,5 +1,6 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,7 @@ public class ProjectStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_status;
 
-    @Column(name = "active" )
+    @Column(name = "active")
     private boolean active;
 
     @Column(name = "inactive")
@@ -21,9 +22,10 @@ public class ProjectStatus {
 
     // relacion uno a muchos entre project y project_status
 
-      @OneToOne
-      @JoinColumn(name = "id_project", unique = true, nullable = false)
-      private Project project;
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_project", unique = true, nullable = false)
+    private Project project;
 
 
     public ProjectStatus(Long id_status, boolean active, boolean inactive, boolean paused, Project project) {
@@ -34,16 +36,16 @@ public class ProjectStatus {
         this.project = project;
     }
 
-      public ProjectStatus() {
+    public ProjectStatus() {
 
-      }
+    }
 
-      public ProjectStatus(boolean active, boolean inactive, boolean paused, Project project) {
-          this.active = active;
-          this.inactive = inactive;
-          this.paused = paused;
-          this.project = project;
-      }
+    public ProjectStatus(boolean active, boolean inactive, boolean paused, Project project) {
+        this.active = active;
+        this.inactive = inactive;
+        this.paused = paused;
+        this.project = project;
+    }
 
 
     public Long getId_status() {
