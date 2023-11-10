@@ -1,5 +1,6 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -34,6 +35,7 @@ public class Task {
     @JsonManagedReference
     private List<TaskStatus> task_status;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     private List<TaskType> tas_type;
 

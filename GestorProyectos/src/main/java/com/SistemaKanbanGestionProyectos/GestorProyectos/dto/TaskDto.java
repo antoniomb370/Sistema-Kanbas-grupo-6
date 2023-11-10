@@ -25,6 +25,20 @@ public class TaskDto {
 
     private List<TaskStatus> task_status;
 
+    private TaskTypeDto taskType;
+
+    public TaskDto(TaskTypeDto taskType) {
+        this.taskType = taskType;
+    }
+
+    public TaskTypeDto getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(TaskTypeDto taskType) {
+        this.taskType = taskType;
+    }
+
     private List<TaskType> tas_type;
 
 
@@ -82,7 +96,7 @@ public class TaskDto {
         return start_date;
     }
 
-    public void setStart_date(LocalDate start_date) {
+    public void setStart_date() {
         this.start_date = start_date;
     }
 
@@ -90,7 +104,7 @@ public class TaskDto {
         return due_date;
     }
 
-    public void setDue_date(LocalDate due_date) {
+    public void setDue_date() {
         this.due_date = due_date;
     }
 
