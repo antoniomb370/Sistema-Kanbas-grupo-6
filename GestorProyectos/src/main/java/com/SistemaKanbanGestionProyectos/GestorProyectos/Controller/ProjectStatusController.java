@@ -1,7 +1,5 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.Controller;
 
-
-import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.ProjectStatusDto;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.service.ProjectStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,6 @@ public class ProjectStatusController {
         this.projectStatusService = projectStatusService;
     }
 
-
     // actualizar el estado de un proyecto
     @PutMapping("/status/{projectId}")
     public ResponseEntity<Object> updateProjectStatus(
@@ -30,4 +27,6 @@ public class ProjectStatusController {
         String newStatus = requestBody.get("newStatus");
         return projectStatusService.updateProjectStatus(projectId, newStatus);
     }
+
+
 }

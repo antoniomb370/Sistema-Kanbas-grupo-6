@@ -1,12 +1,13 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.service;
-
 import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.ProjectDto;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.exceptionManeger.ProjectAlreadyExistsException;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Project;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.ProjectStatus;
+import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Task;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.repository.ProjectRepository;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.repository.ProjectStatusRepository;
-import org.springframework.beans.BeanUtils;
+import com.SistemaKanbanGestionProyectos.GestorProyectos.repository.TaskRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,22 +15,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-
+import java.util.stream.Collectors;
 @Service
 public class ProjectService {
-
     private final ProjectRepository projectRepository;
     private final ProjectStatusRepository projectStatusRepository;
+    private final TaskRepository taskRepository;
 
     @Autowired
     public ProjectService(ProjectRepository projectRepository,
-                          ProjectStatusRepository projectStatusRepository) {
+                          ProjectStatusRepository projectStatusRepository,
+                          TaskRepository taskRepository) {
         this.projectRepository = projectRepository;
         this.projectStatusRepository = projectStatusRepository;
+        this.taskRepository = taskRepository;
     }
-
     // crear un nuevo proyecto
     public ResponseEntity<Object> createProject(ProjectDto projectDto) {
         HashMap<String, Object> datos = new HashMap<>();
@@ -53,7 +54,7 @@ public class ProjectService {
             Project project = new Project(projectDto.getName(), projectDto.getDescription());
             project.setStatus("active");
 
-          // crear estado del proyecto
+            // crear estado del proyecto
             ProjectStatus projectStatus = new ProjectStatus();
             projectStatus.setActive(true);
             projectStatus.setProject(project);
@@ -79,8 +80,6 @@ public class ProjectService {
             return new ResponseEntity<>(datos, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
     public List<Project> getProjects() {
         return projectRepository.findAll();
     }
@@ -91,7 +90,6 @@ public class ProjectService {
         Pageable pageable = PageRequest.of(page - 1, size);
         return projectRepository.findAll(pageable);
     }
-
 
 
     // actualizar un  proyecto por id
@@ -127,7 +125,6 @@ public class ProjectService {
             );
         }
     }
-
     // eliminar un proyecto por id
     public ResponseEntity<Object> deleteProject(Long id) {
         HashMap<String, Object> datos = new HashMap<>();
@@ -157,7 +154,6 @@ public class ProjectService {
         }
 
     }
-
     // busca    un proyecto por id
     public ResponseEntity<Object> getProjectById(Long id) {
 
@@ -184,13 +180,38 @@ public class ProjectService {
                         HttpStatus.NOT_FOUND
                 );
             }
-
         } catch (Exception e) {
             datos.put("error", true);
             datos.put("message", "Error al buscar el proyecto");
             return new ResponseEntity<>(datos, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
+    // Traer tablero por tipo de estado
+    public Map<String, Object> getProjectBoard(Long id) {
+        Optional<Project> optionalProject = projectRepository.findById(id);
+        if (optionalProject.isPresent()) {
+            Project project = optionalProject.get();
+            // Obtener todas las tareas del proyecto y agruparlas por estado
+            List<Task> tasks = taskRepository.findByProjectId(id);
+            Map<String, List<Task>> tasksByStatus = tasks.stream()
+                    .collect(Collectors.groupingBy(Task::getCurrentStatus));
+            // Crear el tablero
+            List<Map<String, Object>> board = new ArrayList<>();
+            for (Map.Entry<String, List<Task>> entry : tasksByStatus.entrySet()) {
+                Map<String, Object> statusTasks = new HashMap<>();
+                statusTasks.put("status", entry.getKey());
+                statusTasks.put("tasks", entry.getValue());
+                board.add(statusTasks);
+            }
+            // Crear la respuesta
+            Map<String, Object> response = new HashMap<>();
+            response.put("project", project);
+            response.put("board", board);
+            return response;
+        } else {
+            throw new EntityNotFoundException("No se encontró ningún proyecto con el ID: " + id);
+        }
+    }
+
 
 }

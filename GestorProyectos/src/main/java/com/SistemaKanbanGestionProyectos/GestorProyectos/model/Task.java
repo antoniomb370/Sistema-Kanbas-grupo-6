@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "task")
@@ -27,17 +26,24 @@ public class Task {
     @Column(name = "update_at")
     private LocalDateTime updateAt;
 
+    @Column(name = "status")
+    private String currentStatus;
+
+    @Column(name = "type")
+    private String taskTypeString;
     @ManyToOne
     @JoinColumn(name = "id_project")
     private Project project;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_status_id")
     @JsonManagedReference
-    private List<TaskStatus> task_status;
+    private TaskStatus taskStatus;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
-    private List<TaskType> tas_type;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_type_id", nullable = false)
+    private TaskType taskType;
 
     @PrePersist
     protected void onCreate() {
@@ -52,19 +58,6 @@ public class Task {
 
     public Task() {
 
-    }
-
-    public Task(Long id_task, String name, String description, LocalDate start_date, LocalDate due_date, LocalDateTime createAt, LocalDateTime updateAt, Project project, List<TaskStatus> task_status, List<TaskType> tas_type) {
-        this.id_task = id_task;
-        this.name = name;
-        this.description = description;
-        this.start_date = start_date;
-        this.due_date = due_date;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-        this.project = project;
-        this.task_status = task_status;
-        this.tas_type = tas_type;
     }
 
     public Long getId_task() {
@@ -91,7 +84,7 @@ public class Task {
         this.description = description;
     }
 
-    public LocalDate getStart_date(LocalDate start_date) {
+    public LocalDate getStart_date() {
         return start_date;
     }
 
@@ -100,7 +93,7 @@ public class Task {
     }
 
 
-    public LocalDate  getDue_date(LocalDate due_date) {
+    public LocalDate getDue_date() {
         return due_date;
     }
 
@@ -132,19 +125,35 @@ public class Task {
         this.project = project;
     }
 
-    public List<TaskStatus> getTask_status() {
-        return task_status;
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setTask_status(List<TaskStatus> task_status) {
-        this.task_status = task_status;
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
-    public List<TaskType> getTas_type() {
-        return tas_type;
+    public TaskType getTaskType() {
+        return taskType;
     }
 
-    public void setTas_type(List<TaskType> tas_type) {
-        this.tas_type = tas_type;
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
+    public String getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
+    public String getTaskTypeString() {
+        return taskTypeString;
+    }
+
+    public void setTaskTypeString(String taskTypeString) {
+        this.taskTypeString = taskTypeString;
     }
 }

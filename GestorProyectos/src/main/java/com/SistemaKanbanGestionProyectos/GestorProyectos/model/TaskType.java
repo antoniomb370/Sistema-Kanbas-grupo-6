@@ -9,35 +9,17 @@ public class TaskType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_task_type;
-
     @Column(name = "bug")
-    private String bug;
+    private boolean bug;
     @Column(name = "story")
-    private String story;
-
-
+    private boolean story;
     @Column(name = "spike")
-    private String spike;
-
+    private boolean spike;
     @Column(name = "bedt")
-    private String bedt;
-
-    @ManyToOne
-    @JoinColumn(name = "task_id", nullable = false)
-    private Task task;
-
+    private boolean bedt;
 
     public TaskType() {
 
-    }
-
-    public TaskType(Long id_task_type, String bug, String story, String spike, String bedt, Task task) {
-        this.id_task_type = id_task_type;
-        this.bug = bug;
-        this.story = story;
-        this.spike = spike;
-        this.bedt = bedt;
-        this.task = task;
     }
 
     public Long getId_task_type() {
@@ -48,45 +30,38 @@ public class TaskType {
         this.id_task_type = id_task_type;
     }
 
-    public String getBug() {
+    public boolean isBug() {
         return bug;
     }
 
-    public void setBug(String bug) {
+    public void setBug(boolean bug) {
         this.bug = bug;
     }
 
-    public String getStory() {
+    public boolean isStory() {
         return story;
     }
 
-    public void setStory(String story) {
+    public void setStory(boolean story) {
         this.story = story;
     }
 
-    public String getSpike() {
+    public boolean isSpike() {
         return spike;
     }
 
-    public void setSpike(String spike) {
+    public void setSpike(boolean spike) {
         this.spike = spike;
     }
 
-    public String getBedt() {
+    public boolean isBedt() {
         return bedt;
     }
 
-    public void setBedt(String bedt) {
+    public void setBedt(boolean bedt) {
         this.bedt = bedt;
     }
 
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
 }
 
 

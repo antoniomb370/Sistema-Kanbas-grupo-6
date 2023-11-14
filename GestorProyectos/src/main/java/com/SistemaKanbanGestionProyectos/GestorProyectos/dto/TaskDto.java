@@ -1,72 +1,23 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.dto;
 
-import com.SistemaKanbanGestionProyectos.GestorProyectos.model.TaskStatus;
-import com.SistemaKanbanGestionProyectos.GestorProyectos.model.TaskType;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-
 public class TaskDto {
 
     private Long id_task;
-
     private String name;
-
     private String description;
-
+    private String currentStatus;
     private LocalDate start_date;
-
     private LocalDate due_date;
-
     private LocalDateTime createAt;
-
     private LocalDateTime updateAt;
-
-    private List<TaskStatus> task_status;
-
+    private TaskStatusDto taskStatus;
     private TaskTypeDto taskType;
+    private String taskTypeString;
 
-    public TaskDto(TaskTypeDto taskType) {
-        this.taskType = taskType;
+    public TaskDto() {
     }
-
-    public TaskTypeDto getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(TaskTypeDto taskType) {
-        this.taskType = taskType;
-    }
-
-    private List<TaskType> tas_type;
-
-
-      public TaskDto() {
-      }
-
-      public TaskDto(Long id_task, String name, String description, LocalDate start_date, LocalDate due_date, LocalDateTime createAt, LocalDateTime updateAt, List<TaskStatus> task_status, List<TaskType> tas_type) {
-          this.id_task = id_task;
-          this.name = name;
-          this.description = description;
-          this.start_date = start_date;
-          this.due_date = due_date;
-          this.createAt = LocalDateTime.now();
-          this.updateAt = LocalDateTime.now();
-          this.task_status = task_status;
-          this.tas_type = tas_type;
-      }
-
-      public TaskDto(String name, String description, LocalDate start_date, LocalDate due_date, LocalDateTime createAt, LocalDateTime updateAt, List<TaskStatus> task_status, List<TaskType> tas_type) {
-          this.name = name;
-          this.description = description;
-          this.start_date = start_date;
-          this.due_date = due_date;
-          this.createAt = createAt;
-          this.updateAt = updateAt;
-          this.task_status = task_status;
-          this.tas_type = tas_type;
-      }
 
     public Long getId_task() {
         return id_task;
@@ -92,11 +43,19 @@ public class TaskDto {
         this.description = description;
     }
 
+    public String getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
     public LocalDate getStart_date() {
         return start_date;
     }
 
-    public void setStart_date() {
+    public void setStart_date(LocalDate start_date) {
         this.start_date = start_date;
     }
 
@@ -104,7 +63,7 @@ public class TaskDto {
         return due_date;
     }
 
-    public void setDue_date() {
+    public void setDue_date(LocalDate due_date) {
         this.due_date = due_date;
     }
 
@@ -124,21 +83,27 @@ public class TaskDto {
         this.updateAt = updateAt;
     }
 
-    public List<TaskStatus> getTask_status() {
-        return task_status;
+    public TaskStatusDto getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setTask_status(List<TaskStatus> task_status) {
-        this.task_status = task_status;
+    public void setTaskStatus(TaskStatusDto taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
-    public List<TaskType> getTas_type() {
-        return tas_type;
+    public TaskTypeDto getTaskType() {
+        return taskType;
     }
 
-    public void setTas_type(List<TaskType> tas_type) {
-        this.tas_type = tas_type;
+    public void setTaskType(TaskTypeDto taskType) {
+        this.taskType = taskType;
     }
 
+    public String getTaskTypeString() {
+        return taskTypeString;
+    }
 
+    public void setTaskTypeString(String taskTypeString) {
+        this.taskTypeString = taskTypeString;
+    }
 }

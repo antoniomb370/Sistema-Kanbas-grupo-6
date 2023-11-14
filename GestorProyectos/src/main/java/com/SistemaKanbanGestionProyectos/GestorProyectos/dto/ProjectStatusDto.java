@@ -1,7 +1,7 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.dto;
 
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Project;
-import jakarta.persistence.*;
+
 
 public class ProjectStatusDto {
 

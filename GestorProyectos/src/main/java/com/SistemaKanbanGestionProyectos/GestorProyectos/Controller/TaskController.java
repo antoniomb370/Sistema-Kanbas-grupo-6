@@ -1,8 +1,6 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.Controller;
 
-
 import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.TaskDto;
-import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.TaskTypeDto;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Task;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +17,9 @@ import java.util.List;
 public class TaskController {
 
 
-    @Autowired
     private final TaskService taskService;
 
+    @Autowired
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -37,6 +35,7 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllTasks() {
         return taskService.getTasks();
     }
+
 
     // get task by page and size
     @GetMapping("/tasksForPage")
@@ -65,10 +64,10 @@ public class TaskController {
     }
 
 // get task by id
-    @GetMapping("/tasks/{id}")
-    public ResponseEntity<Object> getTaskById(@PathVariable Long id) {
-        return taskService.getTaskById(id);
-    }
+//    @GetMapping("/tasks/{id}")
+//    public ResponseEntity<Object> getTaskById(@PathVariable Long id) {
+//        return taskService.getTaskById(id);
+//    }
 
 
 }

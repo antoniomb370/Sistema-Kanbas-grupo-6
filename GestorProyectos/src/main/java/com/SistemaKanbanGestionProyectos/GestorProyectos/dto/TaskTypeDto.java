@@ -1,30 +1,19 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.dto;
 
-import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Task;
-import jakarta.persistence.*;
-
 public class TaskTypeDto {
 
     private Long id_task_type;
-    private String bug;
-    private String story;
-    private String spike;
-    private String bedt;
-    private Task task;
+    private boolean bug;
+    private boolean story;
+    private boolean spike;
+    private boolean bedt;
+    private boolean task;
 
-      public TaskTypeDto() {
-      }
+    public TaskTypeDto() {
+    }
 
-      public TaskTypeDto(Long id_task_type, String bug, String story, String spike, String bedt, Task task) {
-          this.id_task_type = id_task_type;
-          this.bug = bug;
-          this.story = story;
-          this.spike = spike;
-          this.bedt = bedt;
-          this.task = task;
-      }
-
-    public TaskTypeDto(String bug, String story, String spike, String bedt, Task task) {
+    public TaskTypeDto(Long id_task_type, boolean bug, boolean story, boolean spike, boolean bedt, boolean task) {
+        this.id_task_type = id_task_type;
         this.bug = bug;
         this.story = story;
         this.spike = spike;
@@ -40,43 +29,43 @@ public class TaskTypeDto {
         this.id_task_type = id_task_type;
     }
 
-    public String getBug() {
+    public boolean isBug() {
         return bug;
     }
 
-    public void setBug(String bug) {
+    public void setBug(boolean bug) {
         this.bug = bug;
     }
 
-    public String getStory() {
+    public boolean isStory() {
         return story;
     }
 
-    public void setStory(String story) {
+    public void setStory(boolean story) {
         this.story = story;
     }
 
-    public String getSpike() {
+    public boolean isSpike() {
         return spike;
     }
 
-    public void setSpike(String spike) {
+    public void setSpike(boolean spike) {
         this.spike = spike;
     }
 
-    public String getBedt() {
+    public boolean isBedt() {
         return bedt;
     }
 
-    public void setBedt(String bedt) {
+    public void setBedt(boolean bedt) {
         this.bedt = bedt;
     }
 
-    public Task getTask() {
+    public boolean isTask() {
         return task;
     }
 
-    public void setTask(Task task) {
+    public void setTask(boolean task) {
         this.task = task;
     }
 }
