@@ -32,6 +32,11 @@ public class ProjectDto {
         this.updateAt = updateAt;
     }
 
+    public ProjectDto(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getStatus() {
         return status;
     }
