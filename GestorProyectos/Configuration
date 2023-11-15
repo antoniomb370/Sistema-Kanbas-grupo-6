@@ -1,0 +1,19 @@
+@Configuration
+@SecurityScheme(
+        type = SecuritySchemeType.HTTP,
+        name = "BearerAuth",
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
+@OpenAPIDefinition(
+        info = @Info(
+                title = "API Documentation"
+        ),
+        servers = {
+                @Server(url = "https://api-rest-messenger-service-production.up.railway.app",description = "Production server"),
+                @Server(url = "http://localhost:8080",description = "Development server")
+        }
+)
+public class SwaggerConfig {
+
+}

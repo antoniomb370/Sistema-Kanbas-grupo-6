@@ -2,7 +2,15 @@ package com.SistemaKanbanGestionProyectos.GestorProyectos.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "task_status")
 public class TaskStatus {
@@ -23,45 +31,6 @@ public class TaskStatus {
     private boolean done;
 
 
-    public Long getId_status_type() {
-        return id_status_type;
-    }
-
-    public void setId_status_type(Long id_status_type) {
-        this.id_status_type = id_status_type;
-    }
-
-    public boolean getToDo() {
-        return toDo;
-    }
-
-    public void setToDo(boolean toDo) {
-        this.toDo = toDo;
-    }
-
-    public boolean getInProgress() {
-        return inProgress;
-    }
-
-    public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
-    }
-
-    public boolean getBlocked() {
-        return blocked;
-    }
-
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
-    }
-
-    public boolean getDone() {
-        return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
-    }
 
 
 }

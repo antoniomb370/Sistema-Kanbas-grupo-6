@@ -46,7 +46,7 @@ public class TaskStatusService {
                         || "INPROGRESS".equals(currentStatus) && "TODO".equals(newStatus)
                         || "BLOCKED".equals(currentStatus) && "TODO".equals(newStatus)
                         || "DONE".equals(currentStatus)) {
-                    datos.put("mensaje", "Cambio de estado inválido");
+                    datos.put("mensaje", "el estado " + newStatus + " no es válido");
                     return new ResponseEntity<>(datos, HttpStatus.BAD_REQUEST);
                 }
                 // Actualizar los campos toDo, inProgress, blocked y done
