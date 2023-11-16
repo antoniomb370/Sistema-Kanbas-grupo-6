@@ -53,5 +53,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .filter(e -> e.username().equals(username))
                 .findFirst()
                 .orElse(null);
-    }
+}
 }

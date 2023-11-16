@@ -5,7 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectStatusRepository  extends JpaRepository<ProjectStatus, Long> {
-//    Optional<ProjectStatus> findProjectByName(String name);
-//
-//    Optional<ProjectStatus> findById(Integer id);
+
 }

@@ -1,5 +1,6 @@
 package com.SistemaKanbanGestionProyectos.GestorProyectos.Controller;
 
+import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.UserDto;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.AuthenticationReq;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.TokenInfo;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.security.JwtUtilService;

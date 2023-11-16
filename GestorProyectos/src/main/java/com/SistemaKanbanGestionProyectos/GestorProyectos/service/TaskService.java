@@ -18,8 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -51,8 +53,8 @@ public class TaskService {
             task.setDescription(taskDto.getDescription());
             task.setCurrentStatus("TODO");
             task.setTaskTypeString(taskDto.getTaskTypeString());
-            task.setStart_date(taskDto.getStart_date());
-            task.setDue_date(taskDto.getDue_date());
+            task.setStartDate(taskDto.getStartDate());
+            task.setDueDate(taskDto.getDueDate());
             task.setCreateAt(LocalDateTime.now());
             task.setUpdateAt(LocalDateTime.now());
             task.setProject(project);
@@ -107,8 +109,8 @@ public class TaskService {
                 Task task = res.get();
                 task.setName(taskDto.getName());
                 task.setDescription(taskDto.getDescription());
-                task.setStart_date(taskDto.getStart_date());
-                task.setDue_date(taskDto.getDue_date());
+                task.setStartDate(taskDto.getStartDate());
+                task.setDueDate(taskDto.getDueDate());
 
                 taskRepository.save(task);
                 datos.put("message", "Se ha actualizado la tarea con éxito");
@@ -146,55 +148,24 @@ public class TaskService {
         }
     }
 
-    // arregalr este metodo trae todo en null
-
-
-    // get task by id
-//    public ResponseEntity<Object> getTaskById(Long id) {
-//        HashMap<String, Object> datos = new HashMap<>();
-//        try {
-//            Optional<Task> taskOptional = taskRepository.findById(id);
-//            if (taskOptional.isPresent()) {
-//                Task task = taskOptional.get();
-//                TaskDto taskDto = new TaskDto();
-//                taskDto.setId_task(task.getId_task());
-//                taskDto.setName(task.getName());
-//                taskDto.setDescription(task.getDescription());
-//                  taskDto.setStart_date();
-//
-//                taskDto.setCreateAt(task.getCreateAt());
-//                taskDto.setUpdateAt(task.getUpdateAt());
-//                taskDto.setDue_date();
-//                taskDto.
-//
-//                        Optional<Project> projectOptional = projectRepository.findById(id);
-//                if (projectOptional.isPresent()) {
-//                    Project project = projectOptional.get();
-//                    ProjectDto projectDto = new ProjectDto();
-//                    projectDto.setId(project.getId());
-//                    projectDto.setName(project.getName());
-//                    projectDto.setDescription(project.getDescription());
-//                    projectDto.setStatus(project.getStatus());
-//                    projectDto.setCreateAt(project.getCreateAt());
-//                    projectDto.setUpdateAt(project.getUpdateAt());
-//                    datos.put("project", projectDto);
-//                    datos.put("message", "Proyecto encontrado con éxito");
-//                    return new ResponseEntity<>(datos, HttpStatus.OK);
-//
-//                    // Asegúrate de establecer todos los campos necesarios aquí
-//                    datos.put("task", taskDto);
-//                    datos.put("message", "Tarea encontrada con éxito");
-//                    return new ResponseEntity<>(datos, HttpStatus.OK);
-//                } else {
-//                    datos.put("error", true);
-//                    datos.put("message", "No se encontró ninguna tarea con el ID: " + id);
-//                    return new ResponseEntity<>(datos, HttpStatus.NOT_FOUND);
-//                }
-//            } catch(Exception e){
-//                datos.put("error", true);
-//                datos.put("message", "Error al buscar la tarea: " + e.getMessage());
-//                return new ResponseEntity<>(datos, HttpStatus.INTERNAL_SERVER_ERROR);
-//            }
-//        }
+//    public List<Task> getDueTasks(Long projectId) {
+//        LocalDate today = LocalDate.now();
+//        return taskRepository.findByProjectIdAndDueDateBefore(projectId, today);
+//    }
+public List<TaskDto> getDueTasks(Long projectId) {
+    LocalDate today = LocalDate.now();
+    List<Task> tasks = taskRepository.findByProjectIdAndDueDateBefore(projectId, today);
+    return tasks.stream()
+            .map(task -> new TaskDto(
+                    task.getId_task(),
+                    task.getName(),
+                    task.getDescription(),
+                    task.getStartDate(),
+                    task.getDueDate(),
+                    task.getCurrentStatus(),
+                    task.getTaskTypeString()
+            ))
+            .collect(Collectors.toList());
+}
 
 }

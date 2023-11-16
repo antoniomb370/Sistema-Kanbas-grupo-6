@@ -31,4 +31,6 @@ public class TaskTypeController {
         String newType = requestBody.get("newType");
         return taskTypeService.updateTaskType(taskId, newType);
     }
+
+
 }

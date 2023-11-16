@@ -2,6 +2,7 @@ package com.SistemaKanbanGestionProyectos.GestorProyectos.Controller;
 
 import com.SistemaKanbanGestionProyectos.GestorProyectos.dto.TaskDto;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.model.Task;
+import com.SistemaKanbanGestionProyectos.GestorProyectos.repository.TaskRepository;
 import com.SistemaKanbanGestionProyectos.GestorProyectos.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,10 +20,11 @@ public class TaskController {
 
 
     private final TaskService taskService;
-
+    private final TaskRepository taskRepository;
     @Autowired
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, TaskRepository taskRepository) {
         this.taskService = taskService;
+         this.taskRepository = taskRepository;
     }
 
     // create task
@@ -63,11 +66,12 @@ public class TaskController {
         return taskService.deleteTask(id);
     }
 
-// get task by id
-//    @GetMapping("/tasks/{id}")
-//    public ResponseEntity<Object> getTaskById(@PathVariable Long id) {
-//        return taskService.getTaskById(id);
-//    }
 
+
+
+    @GetMapping("/due/{projectId}")
+    public List<TaskDto> getDueTasks(@PathVariable Long projectId) {
+        return taskService.getDueTasks(projectId);
+    }
 
 }

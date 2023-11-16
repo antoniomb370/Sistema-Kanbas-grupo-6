@@ -18,12 +18,18 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter{
-    @Autowired
     private UserDetailsService userDetailsService;
-
-    @Autowired
     private JwtUtilService jwtUtilService;
 
+    @Autowired
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Autowired
+    public void setJwtUtilService(JwtUtilService jwtUtilService) {
+        this.jwtUtilService = jwtUtilService;
+    }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {

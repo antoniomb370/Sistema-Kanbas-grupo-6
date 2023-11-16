@@ -27,9 +27,9 @@ public class Task {
     @Column(name = "description", length = 225)
     private String description;
     @Column(name = "start_date")
-    private LocalDate start_date;
+    private LocalDate startDate;
     @Column(name = "due_date")
-    private LocalDate due_date;
+    private LocalDate dueDate;
     @Column(name = "create_at")
     private LocalDateTime createAt;
     @Column(name = "update_at")
@@ -65,6 +65,13 @@ public class Task {
         updateAt = LocalDateTime.now();
     }
 
+    public Long getId_task() {
+        return id_task;
+    }
+
+    public void setId_task(Long id_task) {
+        this.id_task = id_task;
+    }
 
 
 }

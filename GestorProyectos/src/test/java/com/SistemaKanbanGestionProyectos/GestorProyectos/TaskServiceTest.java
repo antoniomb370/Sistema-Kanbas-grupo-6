@@ -15,7 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,7 +26,6 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class TaskServiceTest {
@@ -74,8 +72,8 @@ public class TaskServiceTest {
         assertEquals(taskDto.getName(), task.getName());
         assertEquals(taskDto.getDescription(), task.getDescription());
         assertEquals(taskDto.getTaskTypeString(), task.getTaskTypeString());
-        assertEquals(taskDto.getStart_date(), task.getStart_date());
-        assertEquals(taskDto.getDue_date(), task.getDue_date());
+        assertEquals(taskDto.getStartDate(), task.getStartDate());
+        assertEquals(taskDto.getDueDate(), task.getDueDate());
     }
 
 //
