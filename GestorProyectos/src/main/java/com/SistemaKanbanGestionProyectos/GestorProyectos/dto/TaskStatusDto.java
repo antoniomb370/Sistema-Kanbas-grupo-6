@@ -18,6 +18,4 @@ public class TaskStatusDto {
     private boolean blocked;
     private boolean done;
 
-
-
 }

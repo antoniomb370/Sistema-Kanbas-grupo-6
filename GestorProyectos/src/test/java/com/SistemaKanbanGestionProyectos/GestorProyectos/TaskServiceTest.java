@@ -15,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -77,31 +78,31 @@ public class TaskServiceTest {
     }
 
 //
-////    @Test
-////    public void testCreateTask_Success() {
-////        // Crear datos de prueba
-////        Long projectId = 1L;
-////        Project project = new Project();
-////        TaskDto taskDto = new TaskDto();
-////        taskDto.setName("Test Task");
-////
-////        // Configurar los mocks
-////        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
-////        when(taskRepository.save(any(Task.class))).thenAnswer(i -> i.getArguments()[0]);
-////
-////        // Llamar al método que se está probando
-////        ResponseEntity<Object> response = taskService.createTask(projectId, taskDto);
-////
-////        // Verificar los resultados
-////        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-////        @SuppressWarnings("unchecked")
-////        Map<String, Object> body = (Map<String, Object>) response.getBody();
-////        assertNotNull(body);
-////        assertEquals("Se ha creado la tarea con éxito", body.get("message"));
-////        Task task = (Task) body.get("datos");
-////        assertEquals(taskDto.getName(), task.getName());
-////    }
-//
+    @Test
+    public void testCreateTask_Success() {
+        // Crear datos de prueba
+        Long projectId = 1L;
+        Project project = new Project();
+        TaskDto taskDto = new TaskDto();
+        taskDto.setName("Test Task");
+
+        // Configurar los mocks
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
+        when(taskRepository.save(any(Task.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        // Llamar al método que se está probando
+        ResponseEntity<Object> response = taskService.createTask(projectId, taskDto);
+
+        // Verificar los resultados
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        @SuppressWarnings("unchecked")
+        Map<String, Object> body = (Map<String, Object>) response.getBody();
+        assertNotNull(body);
+        assertEquals("Se ha creado la tarea con éxito", body.get("message"));
+        Task task = (Task) body.get("datos");
+        assertEquals(taskDto.getName(), task.getName());
+    }
+
 //    @Test
 //    public void testCreateTask() {
 //        // Crear datos de prueba

@@ -26,28 +26,17 @@ public class WebSecurityConfig {
         http.csrf().disable()
 
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/v1/login/authenticate1/**",
+                        .requestMatchers("/v1/login/authenticate/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                         .requestMatchers("/https://kanban-production-d917.up.railway.app/**").permitAll()
-                        .requestMatchers("/v1/login/authenticate1").permitAll()
-                        .requestMatchers("api/v1/projectsForPage").permitAll()
+                        .requestMatchers("/v1/login/authenticate").permitAll()
+                        .requestMatchers("api/v1/projects").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET).permitAll()
-                        .requestMatchers(HttpMethod.POST).permitAll()
+                        .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
-                        .requestMatchers("/**").hasRole("ADMIN")
-                        .requestMatchers("/v1/listaTask").hasRole("USER")
-
-
-
-                        .requestMatchers("/v1/login/authenticate1").permitAll()
-                        .requestMatchers("api/v1/projectsForPage").permitAll()
-                        .requestMatchers("api/v1/projectsForPage/{id}").permitAll()
-                        .requestMatchers("api/v1/projectsForPage/{id}/tasks").permitAll()
-                        .requestMatchers("api/v1/projectsForPage/{id}/tasks/{id}").permitAll()
-                        .requestMatchers("api/v1/projectsForPage/{id}/tasks/{id}/subtasks").permitAll()
-                        .requestMatchers("api/v1/projectsForPage/{id}/tasks/{id}/subtasks/{id}").permitAll()
+                        .requestMatchers("/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .cors(withDefaults())
